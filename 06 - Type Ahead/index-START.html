@@ -32,12 +32,21 @@ function getMatchedPlace(word, cities){
   });
 }
 
-function updateList(matchedPlace){
+function getNumberWithCommas(x){
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+function highlightString(search, word){
+    let regex = new RegExp(search, 'gi');
+    return word.replace(regex, `<span class='hl'>${search}</span>`);
+}
+
+function updateList(searchValue, matchedPlace){
   return matchedPlace.map(value => {
     return `
       <li>
-        <span>${value.city}, ${value.state}</span>
-        <span class="population">${value.population}</span>
+        <span>${highlightString(searchValue, value.city)}, ${highlightString(searchValue, value.state)}</span>
+        <span class="population">${getNumberWithCommas(value.population)}</span>
       </li>
     `
   }).join('');
@@ -45,7 +54,7 @@ function updateList(matchedPlace){
 
 function displayList(){
   const matchedPlace = getMatchedPlace(this.value, data);
-  suggestions.innerHTML = updateList(matchedPlace);
+  suggestions.innerHTML = updateList(this.value, matchedPlace);
 }
 
 input.addEventListener('change', displayList);
