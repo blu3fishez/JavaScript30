@@ -9,7 +9,7 @@
 
     html {
       font-family: sans-serif;
-      background: #ffc600;
+      background: #9700dd;
     }
 
     .inbox {
@@ -96,6 +96,30 @@
   </div>
 
 <script>
+    const checkboxes = Array.from(document.querySelectorAll('input[type=checkbox]'));
+    let lastCheckbox;
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('click', toggleCheckbox);
+    });
+
+    function toggleCheckbox(e){
+        if(e.shiftKey && this.checked){
+            let startCheck = false;
+            checkboxes.forEach(checkbox => {
+                console.log(startCheck);
+                console.dir(checkbox)
+                if(checkbox === this || checkbox === lastCheckbox){
+                    startCheck = !startCheck;
+                }
+
+                if(startCheck){
+                    checkbox.checked = true;
+                }
+            })
+        }
+        lastCheckbox = this;
+    }
 </script>
 </body>
 </html>
