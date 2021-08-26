@@ -7,48 +7,48 @@
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
 <script>
-// const canvas = document.querySelector("#draw");
-// canvas.width = window.innerWidth;
-// canvas.height = window.innerHeight;
+const canvas = document.querySelector("#draw");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-// const context = canvas.getContext('2d');
-// let drawing = false;
-// let lastX, lastY;
-// let hue = 0;
-// let drawSize = 50;
-// let direction = 1;
+const context = canvas.getContext('2d');
+let drawing = false;
+let lastX, lastY;
+let hue = 0;
+let drawSize = 50;
+let direction = 1;
 
-// context.lineJoin = 'round';
-// context.lineCap = 'round';
+context.lineJoin = 'round';
+context.lineCap = 'round';
 
-// function drawLine(e){
-//   if(!drawing) return;
-//   context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
-//   context.lineWidth = drawSize;
-//   context.beginPath();
-//   context.moveTo(lastX, lastY);
-//   context.lineTo(e.offsetX, e.offsetY);
-//   context.stroke();
+function drawLine(e){
+  if(!drawing) return;
+  context.strokeStyle = `hsl(${hue}, 100%, 50%)`;
+  context.lineWidth = drawSize;
+  context.beginPath();
+  context.moveTo(lastX, lastY);
+  context.lineTo(e.offsetX, e.offsetY);
+  context.stroke();
 
-//   lastX, lastY = e.offsetX, e.offsetY;
+  [lastX, lastY] = [e.offsetX, e.offsetY];
 
-//   hue = hue >= 360 ? 0 : hue++;
+  hue = (hue >= 360) ? 0 : hue + 1;
 
-//   if(!drawSize || drawSize == 100) direction *= -1;
+  if(!drawSize || drawSize == 100) direction *= -1;
 
-//   drawSize += direction;
-// }
+  drawSize += direction;
+}
 
-// function updateMouse(e){
-//   drawing = true;
-//   lastX = e.offsetX;
-//   lastY = e.offsetY;
-// }
+function updateMouse(e){
+  drawing = true;
+  lastX = e.offsetX;
+  lastY = e.offsetY;
+}
 
-// canvas.addEventListener('mousemove', drawLine);
-// canvas.addEventListener('mousedown', updateMouse);
-// canvas.addEventListener('mouseout', () => drawing = false);
-// canvas.addEventListener('mouseup', () => drawing = false);
+canvas.addEventListener('mousemove', drawLine);
+canvas.addEventListener('mousedown', updateMouse);
+canvas.addEventListener('mouseout', () => drawing = false);
+canvas.addEventListener('mouseup', () => drawing = false);
 
 
 </script>
