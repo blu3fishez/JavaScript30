@@ -58,6 +58,27 @@
       };
     }
 
+    const sliderImages = document.querySelectorAll('.slide-in');
+
+    function showImage(e){
+        sliderImages.forEach(image => {
+            const slideInAt = window.scrollY + window.innerHeight - image.height / 2;
+            const imageTop = image.offsetTop;
+            const imageBottom = imageTop + image.height;
+            const isHalfShown = slideInAt > imageTop;
+            const isNotScrolledPast = window.scrollY < imageBottom;
+            if(isHalfShown && isNotScrolledPast){
+                image.classList.add('active');
+            }
+            else {
+                image.classList.remove('active');
+            }
+            // console.log(slideInAt);
+        });
+    }
+
+    window.addEventListener('scroll', debounce(showImage));
+
   </script>
 
   <style>
@@ -82,6 +103,7 @@
     }
 
     .site-wrap {
+      box-shadow:10px 10px 15px 0px rgb(0 0 0 / 34%);
       max-width: 700px;
       margin: 100px auto;
       background: white;
